@@ -47,10 +47,11 @@ action :add do
     recursive true
   end
 
-  directory new_resource.config[:data_path] do
-    recursive true
-    owner new_resource.run_as
-    only_if{ new_resource.config[:data_path] }
+  if (new_resource.config[:data_path])
+    directory new_resource.config[:data_path] do
+      recursive true
+      owner new_resource.run_as
+    end
   end
 
   file config = ::File.join(config_dir, 'config') do
